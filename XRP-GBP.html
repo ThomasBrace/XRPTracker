@@ -1,0 +1,77 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+  <style>
+  Body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 80px;
+  }
+  input {
+    border: none;
+    font-size: 80px;
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  .column {
+    float:left;
+    clear:none;
+    margin: 30px;
+    width: 200px;
+  }
+  </style>
+
+</head>
+<body>
+  <div class="container">
+    <div class="column">
+      <label for="input">XRP</label><br />
+      <input id="input" value="138.86100000"/>
+    </div>
+    <div class="column">
+      <label for="rate ">Rate</label><br />
+      <span id="rate"></span>
+    </div>
+    <div class="column">
+      <label for="output">Value</label><br />
+      <span id="output">nout</span>
+    </div>
+  </div>
+
+
+  <script>
+
+    function xrp() {
+      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=GBP", function(Data) {
+        return Data;
+      })
+    }
+
+    function getCurrentRate() {
+      $.when(xrp()).done(function(xrp){
+      console.log( "ajaxComplete" );
+      console.log(xrp);
+        var xrpData = xrp.GBP;
+        var xrpStash = $("#input").val();
+        var xrpStashValue = xrp.GBP*xrpStash;
+        $("#output").html("£" +xrpStashValue.toPrecision(4));
+        $("#rate").html(xrpData.toPrecision(4));
+        $("#input").html(xrpStash.toPrecision(4))
+          console.log(xrp);
+      });
+    }
+
+    setInterval(function(){
+      getCurrentRate()
+    },600000);
+
+    $("#input").keyup(function(){
+      getCurrentRate()
+    });
+
+    getCurrentRate();
+
+  </script>
+</body>
