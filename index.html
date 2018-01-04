@@ -5,11 +5,11 @@
   <style>
   Body {
     font-family: 'Poppins', sans-serif;
-    font-size: 80px;
+    font-size: 60px;
   }
   input {
     border: none;
-    font-size: 80px;
+    font-size: 60px;
     width: 200px;
     margin: 0;
     padding: 0;
@@ -18,25 +18,63 @@
   .column {
     float:left;
     clear:none;
-    margin: 30px;
+    margin: 0 30px;
     width: 200px;
+  }
+  .row {
+    clear: both;
   }
   </style>
 
 </head>
 <body>
   <div class="container">
-    <div class="column">
-      <label for="input">XRP</label><br />
-      <input id="input" value="138.86100000"/>
+    <div class="row" id="row0">
+      <div class="column">
+        <label for="input">Coin</label><br />
+        <span class="coin">XRP</span>
+      </div>
+      <div class="column">
+        <label for="input">#</label><br />
+        <input class="input" value="100"/>
+      </div>
+      <div class="column">
+        <label for="rate ">Rate</label><br />
+        <span class="rate"></span>
+      </div>
+      <div class="column">
+        <label for="output">Value</label><br />
+        <span class="output">nout</span>
+      </div>
     </div>
-    <div class="column">
-      <label for="rate ">Rate</label><br />
-      <span id="rate"></span>
+    <div class="row" id="row1">
+      <div class="column">
+        <span class="coin">TRX</span>
+      </div>
+      <div class="column">
+        <input class="input" value="791"/>
+      </div>
+      <div class="column">
+        <span class="rate"></span>
+      </div>
+      <div class="column">
+        <span class="output">nout</span>
+      </div>
     </div>
-    <div class="column">
-      <label for="output">Value</label><br />
-      <span id="output">nout</span>
+
+    <div class="row" id="row2">
+      <div class="column">
+        &nbsp;
+      </div>
+      <div class="column">
+        &nbsp;
+      </div>
+      <div class="column">
+        &nbsp;
+      </div>
+      <div class="column">
+        <span id="total">nout</span>
+      </div>
     </div>
   </div>
 
@@ -49,25 +87,39 @@
       })
     }
 
+    function trx() {
+      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=TRX&tsyms=GBP", function(Data) {
+        return Data;
+      })
+    }
+
     function getCurrentRate() {
-      $.when(xrp()).done(function(xrp){
+      $.when(xrp(),trx()).done(function(xrp,trx){
       console.log( "ajaxComplete" );
       console.log(xrp);
-        var xrpData = xrp.GBP;
-        var xrpStash = $("#input").val();
-        var xrpStashValue = xrp.GBP*xrpStash;
-        $("#output").html("£" +xrpStashValue.toPrecision(4));
-        $("#rate").html(xrpData.toPrecision(4));
-        $("#input").html(xrpStash.toPrecision(4))
-          console.log(xrp);
+      console.log(trx);
+      // XRP
+        var xrpData = xrp[0].GBP;
+        var xrpStash = $("#row0 .input").val();
+        var xrpStashValue = xrp[0].GBP*xrpStash;
+        $("#row0 .output").html("£" +xrpStashValue.toPrecision(4));
+        $("#row0 .rate").html(xrpData.toPrecision(4));
+      // TRX
+        var trxData = trx[0].GBP;
+        var trxStash = $("#row1 .input").val();
+        var trxStashValue = trx[0].GBP*trxStash;
+        $("#row1 .output").html("£" +trxStashValue.toPrecision(4));
+        $("#row1 .rate").html(trxData.toPrecision(4));
+        // Total
+        $("#total").html("£" +(trxStashValue+xrpStashValue).toPrecision(4));
       });
     }
 
     setInterval(function(){
       getCurrentRate()
-    },600000);
+    },60000);
 
-    $("#input").keyup(function(){
+    $(".input").keyup(function(){
       getCurrentRate()
     });
 
