@@ -32,11 +32,11 @@
     <div class="row" id="row0">
       <div class="column">
         <label for="input">Coin</label><br />
-        <span class="coin">XRP</span>
+        <span class="coin">IOT</span>
       </div>
       <div class="column">
         <label for="input">#</label><br />
-        <input class="input" value="100"/>
+        <input class="input" value="56"/>
       </div>
       <div class="column">
         <label for="rate ">Rate</label><br />
@@ -49,10 +49,10 @@
     </div>
     <div class="row" id="row1">
       <div class="column">
-        <span class="coin">TRX</span>
+        <span class="coin">ETH</span>
       </div>
       <div class="column">
-        <input class="input" value="791"/>
+        <input class="input" value="0.225"/>
       </div>
       <div class="column">
         <span class="rate"></span>
@@ -82,13 +82,13 @@
   <script>
 
     function xrp() {
-      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=GBP", function(Data) {
+      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=IOT&tsyms=GBP", function(Data) {
         return Data;
       })
     }
 
     function trx() {
-      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=TRX&tsyms=GBP", function(Data) {
+      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=GBP", function(Data) {
         return Data;
       })
     }
