@@ -32,11 +32,11 @@
     <div class="row" id="row0">
       <div class="column">
         <label for="input">Coin</label><br />
-        <span class="coin">xvg</span>
+        <span class="coin">ltc</span>
       </div>
       <div class="column">
         <label for="input">#</label><br />
-        <input class="input" value="1362.414"/>
+        <input class="input" value="0.818"/>
       </div>
       <div class="column">
         <label for="rate ">Rate</label><br />
@@ -82,7 +82,7 @@
   <script>
 
     function xrp() {
-      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=XVG&tsyms=GBP", function(Data) {
+      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=GBP", function(Data) {
         return Data;
       })
     }
