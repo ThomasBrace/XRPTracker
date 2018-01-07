@@ -49,10 +49,10 @@
     </div>
     <div class="row" id="row1">
       <div class="column">
-        <span class="coin">xlm</span>
+        <span class="coin">lsk</span>
       </div>
       <div class="column">
-        <input class="input" value="329"/>
+        <input class="input" value="5.45"/>
       </div>
       <div class="column">
         <span class="rate"></span>
@@ -88,7 +88,7 @@
     }
 
     function trx() {
-      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=XLM&tsyms=GBP", function(Data) {
+      return $.get( "https://min-api.cryptocompare.com/data/price?fsym=LSK&tsyms=GBP", function(Data) {
         return Data;
       })
     }
